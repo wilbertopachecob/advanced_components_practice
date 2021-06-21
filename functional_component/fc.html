@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Functional components can be a mecanism to build High Order Components, a middle man 
+        between that decides what to render or pass (provide data) to another component.
+        RouterView is a functional component, it just take the current url and the router 
+        config and it renders the matching component.   
+    </p>
+    <div id="app">
+        <big-topic>
+            Hiking Boots
+        </big-topic>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>    
+    <script>
+        Vue.component('big-topic',{
+            functional: true,
+            // context has access to 
+            // props, 
+            // children,
+            // parent,
+            // data (includes attributes and event listeners), 
+            // listeners
+            render(h, context) {
+                return h('div', context.slots().default)
+            }
+        })
+        new Vue({
+            el:'#app',            
+        });
+    </script>
+</body>
+</html>

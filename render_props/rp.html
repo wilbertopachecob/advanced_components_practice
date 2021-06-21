@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <product-list
+        :products="products"
+        :product-renderer="productNameUppercase"
+      >
+      </product-list>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+      Vue.component("product-list", {
+        props: {
+          products: { required: true, type: Array },
+          productRenderer: {
+            type: Function,
+            default: (h, product) => product.name,
+          },
+        },
+        render(h) {
+          return h(
+            "ul",
+            this.products.map((product) =>
+              h("li", this.productRenderer(h, product))
+            )
+          );
+        },
+      });
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            products: [
+              {
+                name: "Soap",
+                img: "https://img.icons8.com/clouds/100/000000/download-2.png",
+              },
+              {
+                name: "Pen",
+                img: "https://img.icons8.com/ios-glyphs/30/000000/download-2.png",
+              },
+            ],
+          };
+        },
+        methods: {
+          productNameUppercase(h, product) {
+            return [
+              h("img", { attrs: { src: product.img } }),
+              " ",
+              product.name.toUpperCase(),
+            ];
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

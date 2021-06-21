@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <just-rendering :items="items"> </just-rendering>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+      const Table = {
+        template: `<div>Im a healthy table</div>`,
+      };
+      const Header = {
+        template: `<h1>Im a Header</h1>`,
+      };
+      Vue.component("just-rendering", {
+        functional: true,  
+        props: ["items"],
+        render(h, { props, data, children }) {
+            return h(props.items.length ? Table : Header, data, children);          
+        },
+      });
+      new Vue({
+        el: "#app",
+        data: () => {
+            return {
+                items: ['1']
+            }
+        }
+      });
+    </script>
+  </body>
+</html>

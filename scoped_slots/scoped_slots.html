@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <products-list :products="products">
+        <template slot="product" slot-scope="{product}">
+          {{product.name.toUpperCase()}}
+        </template>
+      </products-list>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+      Vue.component("products-list", {
+        template: `
+            <ul>
+                <li v-for="product in products">
+                    <slot name="product" :product="product">
+                        {{product.name}}
+                    </slot>
+                </li>
+            </ul>    
+            `,
+        props: ["products"],
+      });
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            products: [
+              {
+                name: "Soap",
+                img: "https://img.icons8.com/clouds/100/000000/download-2.png",
+              },
+              {
+                name: "Pen",
+                img: "https://img.icons8.com/ios-glyphs/30/000000/download-2.png",
+              },
+            ],
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
